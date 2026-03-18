@@ -8,6 +8,7 @@ import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { ParticleField } from '@/components/ui/ParticleField';
 import { TypewriterEffect } from '@/components/ui/TypewriterEffect';
+import { LiveBadge } from '@/components/ui/LiveBadge';
 
 export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured);
@@ -165,7 +166,10 @@ export default function HomePage() {
                   <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                     <Sparkles size={18} />
                   </div>
-                  <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
+                  <div className="flex items-center gap-3">
+                    {project.live && <LiveBadge url={project.live} />}
+                    <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
+                  </div>
                 </div>
                 <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
                   {project.title}

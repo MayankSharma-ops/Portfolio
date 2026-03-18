@@ -1,16 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
+import { LiveBadge } from '@/components/ui/LiveBadge';
 import { projects } from '@/lib/data';
-import { Github, ExternalLink, Star } from 'lucide-react';
+import { Github, ExternalLink, Star, GitCommit, Code } from 'lucide-react';
 import type { Project } from '@/types';
 
 const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort();
 
 function ProjectCard({ project, index, onTagClick }: { project: Project; index: number; onTagClick: (tag: string) => void }) {
   const [expanded, setExpanded] = useState(false);
+  const [ghStats, setGhStats] = useState<{ stars: number; lastCommit: string; language: string } | null>(null);
+
+  useEffect(() => {
+    if (project.github) {
+      fetch(`/api/github-repo?url=${encodeURIComponent(project.github)}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) setGhStats(data);
+        })
+        .catch(() => {});
+    }
+  }, [project.github]);
+
   const text = project.longDescription || project.description;
   const isLong = text.length > 150;
 
@@ -26,6 +40,7 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
             <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
           </div>
           <div className="flex gap-2">
+            {project.live && <LiveBadge url={project.live} />}
             {project.github && (
               <a href={project.github} target="_blank" rel="noopener noreferrer"
                  className="text-[#57534e] hover:text-amber-400 transition" aria-label="GitHub">
@@ -57,17 +72,36 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
           )}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#2a2a2a]">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              onClick={() => onTagClick(tag)}
-              className="tag cursor-pointer"
-            >
-              {tag}
-            </span>
-          ))}
+        {/* Tags & GitHub Stats */}
+        <div className="pt-3 border-t border-[#2a2a2a] mt-auto">
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                onClick={() => onTagClick(tag)}
+                className="tag cursor-pointer"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {ghStats && (
+            <div className="flex items-center gap-3 text-[10px] sm:text-xs font-mono text-[#57534e]">
+              {ghStats.language && (
+                <span className="flex items-center gap-1">
+                  <span className="w-2 h-2 rounded-full bg-amber-500/50" />
+                  {ghStats.language}
+                </span>
+              )}
+              <span className="flex items-center gap-1">
+                <Star size={12} className="text-amber-500/60" /> {ghStats.stars}
+              </span>
+              <span className="flex items-center gap-1">
+                <GitCommit size={12} /> {new Date(ghStats.lastCommit).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </AnimatedSection>
