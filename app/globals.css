@@ -289,3 +289,34 @@ h1, h2, h3 { font-family: var(--font-display); }
 .glow-pulse {
   animation: glowPulse 4s ease-in-out infinite;
 }
+
+/* ── Accessibility ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--amber);
+  color: #0a0a0a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Keyboard focus ring */
+*:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove focus ring from mouse clicks */
+*:focus:not(:focus-visible) {
+  outline: none;
+}

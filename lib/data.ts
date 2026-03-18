@@ -51,24 +51,24 @@ export const projects: Project[] = [
 
 export const skills: Skill[] = [
   // Languages
-  { name: 'JavaScript', level: 88, category: 'languages' },
-  { name: 'TypeScript', level: 85, category: 'languages' },
-  { name: 'C++', level: 85, category: 'languages' },
-  { name: 'Python', level: 80, category: 'languages' },
-  { name: 'Java', level: 70, category: 'languages' },
+  { name: 'JavaScript', level: 88, category: 'languages', icon: 'devicon-javascript-plain' },
+  { name: 'TypeScript', level: 85, category: 'languages', icon: 'devicon-typescript-plain' },
+  { name: 'C++', level: 85, category: 'languages', icon: 'devicon-cplusplus-plain' },
+  { name: 'Python', level: 80, category: 'languages', icon: 'devicon-python-plain' },
+  { name: 'Java', level: 70, category: 'languages', icon: 'devicon-java-plain' },
 
   // Frontend
-  { name: 'Next.js', level: 88, category: 'frontend' },
-  { name: 'React.js', level: 88, category: 'frontend' },
-  { name: 'Tailwind CSS', level: 85, category: 'frontend' },
+  { name: 'Next.js', level: 88, category: 'frontend', icon: 'devicon-nextjs-plain' },
+  { name: 'React.js', level: 88, category: 'frontend', icon: 'devicon-react-original' },
+  { name: 'Tailwind CSS', level: 85, category: 'frontend', icon: 'devicon-tailwindcss-original' },
 
   // Backend
-  { name: 'Node.js', level: 85, category: 'backend' },
-  { name: 'Express.js', level: 85, category: 'backend' },
-  { name: 'PostgreSQL', level: 80, category: 'backend' },
-  { name: 'MongoDB', level: 75, category: 'backend' },
-  { name: 'MySQL', level: 72, category: 'backend' },
-  { name: 'Prisma ORM', level: 80, category: 'backend' },
+  { name: 'Node.js', level: 85, category: 'backend', icon: 'devicon-nodejs-plain' },
+  { name: 'Express.js', level: 85, category: 'backend', icon: 'devicon-express-original' },
+  { name: 'PostgreSQL', level: 80, category: 'backend', icon: 'devicon-postgresql-plain' },
+  { name: 'MongoDB', level: 75, category: 'backend', icon: 'devicon-mongodb-plain' },
+  { name: 'MySQL', level: 72, category: 'backend', icon: 'devicon-mysql-plain' },
+  { name: 'Prisma ORM', level: 80, category: 'backend', icon: 'devicon-prisma-original' },
 
   // Auth & Security
   { name: 'JWT', level: 85, category: 'backend' },
@@ -77,17 +77,17 @@ export const skills: Skill[] = [
   { name: 'Clerk', level: 78, category: 'backend' },
 
   // Tools
-  { name: 'Git / GitHub', level: 88, category: 'tools' },
-  { name: 'Postman', level: 82, category: 'tools' },
-  { name: 'VS Code', level: 95, category: 'tools' },
-  { name: 'Vercel', level: 80, category: 'tools' },
+  { name: 'Git / GitHub', level: 88, category: 'tools', icon: 'devicon-git-plain' },
+  { name: 'Postman', level: 82, category: 'tools', icon: 'devicon-postman-plain' },
+  { name: 'VS Code', level: 95, category: 'tools', icon: 'devicon-vscode-plain' },
+  { name: 'Vercel', level: 80, category: 'tools', icon: 'devicon-vercel-original' },
   { name: 'XAMPP', level: 70, category: 'tools' },
 ];
 
 export const experiences: Experience[] = [
   {
     id: '1',
-    role: 'DSA Training',
+    role: 'Algorithm Engineering Trainee',
     company: 'Lovely Professional University',
     location: 'Punjab, India',
     startDate: 'Jun 2025',

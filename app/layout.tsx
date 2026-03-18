@@ -5,6 +5,7 @@ import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { MouseGlow } from '@/components/ui/MouseGlow';
+import { PageTransition } from '@/components/ui/PageTransition';
 import { personalInfo } from '@/lib/data';
 
 const playfair = Playfair_Display({
@@ -45,13 +46,28 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
+        />
+      </head>
       <body
         className={`${playfair.variable} ${dmSans.variable} ${jetbrains.variable} font-body bg-[#0a0a0a] text-[#f5f0e8] antialiased`}
       >
+        {/* Skip to content — accessibility */}
+        <a
+          href="#main-content"
+          className="skip-link"
+        >
+          Skip to main content
+        </a>
         <div className="noise-overlay" />
         <MouseGlow />
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
       </body>
     </html>

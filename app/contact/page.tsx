@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
+import { CopyEmail } from '@/components/ui/CopyEmail';
 import { personalInfo } from '@/lib/data';
 import { Mail, MapPin, Phone, Github, Linkedin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -11,6 +12,14 @@ type Status = 'idle' | 'loading' | 'success' | 'error';
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState<Status>('idle');
+
+  // Auto-reset success state after 5 seconds
+  useEffect(() => {
+    if (status === 'success') {
+      const timer = setTimeout(() => setStatus('idle'), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [status]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,21 +55,38 @@ export default function ContactPage() {
           <AnimatedSection className="md:col-span-2 space-y-6" direction="left">
             <div className="glass-card p-5 sm:p-6 space-y-5">
               <h3 className="font-display text-lg font-semibold mb-4">Contact Details</h3>
-              {[
-                { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-                { icon: Phone, label: 'Phone', value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
-                { icon: MapPin, label: 'Location', value: personalInfo.location, href: '#' },
-              ].map(({ icon: Icon, label, value, href }) => (
-                <a key={label} href={href} className="flex items-start gap-3.5 group">
-                  <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5 group-hover:bg-amber-500/20 transition">
-                    <Icon size={15} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#57534e] font-mono">{label}</p>
-                    <p className="text-sm text-[#a8a29e] group-hover:text-amber-400 transition break-all">{value}</p>
-                  </div>
-                </a>
-              ))}
+              {/* Email with copy */}
+              <div className="flex items-start gap-3.5">
+                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                  <Mail size={15} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#57534e] font-mono">Email</p>
+                  <CopyEmail email={personalInfo.email} />
+                </div>
+              </div>
+
+              {/* Phone */}
+              <a href={`tel:${personalInfo.phone}`} className="flex items-start gap-3.5 group">
+                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5 group-hover:bg-amber-500/20 transition">
+                  <Phone size={15} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#57534e] font-mono">Phone</p>
+                  <p className="text-sm text-[#a8a29e] group-hover:text-amber-400 transition">{personalInfo.phone}</p>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-start gap-3.5">
+                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                  <MapPin size={15} />
+                </div>
+                <div>
+                  <p className="text-xs text-[#57534e] font-mono">Location</p>
+                  <p className="text-sm text-[#a8a29e]">{personalInfo.location}</p>
+                </div>
+              </div>
             </div>
 
             {/* Socials */}

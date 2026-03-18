@@ -2,19 +2,28 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { Menu, X, Code2, Download } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Menu, X, Code2, Download, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { personalInfo } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
-const navLinks = [
+type NavItem =
+  | { label: string; href: string; children?: never }
+  | { label: string; href?: never; children: { label: string; href: string }[] };
+
+const navItems: NavItem[] = [
   { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume' },
   { label: 'Skills', href: '/skills' },
   { label: 'Projects', href: '/projects' },
-  { label: 'Certificates', href: '/certificates' },
-  { label: 'Achievements', href: '/achievements' },
+  {
+    label: 'Credentials',
+    children: [
+      { label: 'Certificates', href: '/certificates' },
+      { label: 'Achievements', href: '/achievements' },
+    ],
+  },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -22,6 +31,10 @@ export function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileCredentials, setMobileCredentials] = useState(false);
+  const dropdownRef = useRef<HTMLLIElement>(null);
+  const dropdownTimeout = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -29,7 +42,11 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => setMobileOpen(false), [pathname]);
+  useEffect(() => {
+    setMobileOpen(false);
+    setDropdownOpen(false);
+    setMobileCredentials(false);
+  }, [pathname]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -40,6 +57,37 @@ export function Navbar() {
     }
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  // Close dropdown on Escape
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDropdownOpen(false);
+    };
+    document.addEventListener('keydown', handleKey);
+    return () => document.removeEventListener('keydown', handleKey);
+  }, []);
+
+  const handleDropdownEnter = () => {
+    clearTimeout(dropdownTimeout.current);
+    setDropdownOpen(true);
+  };
+
+  const handleDropdownLeave = () => {
+    dropdownTimeout.current = setTimeout(() => setDropdownOpen(false), 150);
+  };
+
+  const isCredentialActive = pathname === '/certificates' || pathname === '/achievements';
 
   return (
     <header
@@ -68,12 +116,81 @@ export function Navbar() {
 
         {/* Desktop Nav */}
         <ul className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || (pathname === '/' && link.href === '/about');
+          {navItems.map((item) => {
+            // Dropdown item
+            if (item.children) {
+              return (
+                <li
+                  key={item.label}
+                  ref={dropdownRef}
+                  className="relative"
+                  onMouseEnter={handleDropdownEnter}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setDropdownOpen(!dropdownOpen); } }}
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="true"
+                    className={cn(
+                      'relative flex items-center gap-1 px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-200',
+                      isCredentialActive
+                        ? 'text-amber-400'
+                        : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown size={13} className={cn('transition-transform duration-200', dropdownOpen && 'rotate-180')} />
+                    {isCredentialActive && (
+                      <motion.span
+                        layoutId="navbar-active"
+                        className="absolute inset-0 rounded-md bg-amber-500/10 -z-10"
+                        transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
+                      />
+                    )}
+                  </button>
+
+                  <AnimatePresence>
+                    {dropdownOpen && (
+                      <motion.ul
+                        className="absolute top-full left-0 mt-1 w-44 py-1.5 rounded-lg border border-[#2a2a2a] bg-[#111111]/95 backdrop-blur-xl shadow-xl"
+                        initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                        transition={{ duration: 0.15 }}
+                        role="menu"
+                      >
+                        {item.children.map((child) => {
+                          const isChildActive = pathname === child.href;
+                          return (
+                            <li key={child.href} role="menuitem">
+                              <Link
+                                href={child.href}
+                                className={cn(
+                                  'block px-4 py-2.5 text-sm transition-colors',
+                                  isChildActive
+                                    ? 'text-amber-400 bg-amber-500/10'
+                                    : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                                )}
+                              >
+                                {child.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            }
+
+            // Regular link
+            const isActive = pathname === item.href || (pathname === '/' && item.href === '/about');
             return (
-              <li key={link.href}>
+              <li key={item.href}>
                 <Link
-                  href={link.href}
+                  href={item.href!}
                   className={cn(
                     'relative px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-200',
                     isActive
@@ -81,8 +198,8 @@ export function Navbar() {
                       : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
                   )}
                 >
-                  {link.label}
-                  {isActive && (
+                  {item.label}
+                  {isActive && !isCredentialActive && (
                     <motion.span
                       layoutId="navbar-active"
                       className="absolute inset-0 rounded-md bg-amber-500/10 -z-10"
@@ -140,34 +257,90 @@ export function Navbar() {
               transition={{ duration: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
             >
               <ul className="space-y-1">
-                {navLinks.map((link, i) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <motion.li
-                      key={link.href}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 * i, duration: 0.3 }}
-                    >
-                      <Link
-                        href={link.href}
-                        className={cn(
-                          'block px-4 py-3 rounded-lg text-sm font-medium transition',
-                          isActive
-                            ? 'text-amber-400 bg-amber-500/10'
-                            : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
-                        )}
+                {(() => {
+                  let idx = 0;
+                  return navItems.map((item) => {
+                    if (item.children) {
+                      const currentIdx = idx++;
+                      return (
+                        <motion.li
+                          key={item.label}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * currentIdx, duration: 0.3 }}
+                        >
+                          <button
+                            onClick={() => setMobileCredentials(!mobileCredentials)}
+                            className={cn(
+                              'w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition',
+                              isCredentialActive
+                                ? 'text-amber-400 bg-amber-500/10'
+                                : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                            )}
+                          >
+                            {item.label}
+                            <ChevronDown size={14} className={cn('transition-transform', mobileCredentials && 'rotate-180')} />
+                          </button>
+                          <AnimatePresence>
+                            {mobileCredentials && (
+                              <motion.ul
+                                className="ml-4 mt-1 space-y-1 border-l border-[#2a2a2a] pl-3"
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                              >
+                                {item.children.map((child) => (
+                                  <li key={child.href}>
+                                    <Link
+                                      href={child.href}
+                                      className={cn(
+                                        'block px-4 py-2.5 rounded-lg text-sm transition',
+                                        pathname === child.href
+                                          ? 'text-amber-400 bg-amber-500/10'
+                                          : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                                      )}
+                                    >
+                                      {child.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </motion.ul>
+                            )}
+                          </AnimatePresence>
+                        </motion.li>
+                      );
+                    }
+
+                    const currentIdx = idx++;
+                    const isActive = pathname === item.href;
+                    return (
+                      <motion.li
+                        key={item.href}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.05 * currentIdx, duration: 0.3 }}
                       >
-                        {link.label}
-                      </Link>
-                    </motion.li>
-                  );
-                })}
+                        <Link
+                          href={item.href!}
+                          className={cn(
+                            'block px-4 py-3 rounded-lg text-sm font-medium transition',
+                            isActive
+                              ? 'text-amber-400 bg-amber-500/10'
+                              : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                          )}
+                        >
+                          {item.label}
+                        </Link>
+                      </motion.li>
+                    );
+                  });
+                })()}
                 <motion.li
                   className="pt-3"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * navLinks.length, duration: 0.3 }}
+                  transition={{ delay: 0.05 * navItems.length, duration: 0.3 }}
                 >
                   <a
                     href={personalInfo.resumeUrl}

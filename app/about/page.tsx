@@ -2,8 +2,10 @@
 
 import { PageHeader } from '@/components/ui/PageHeader';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
+import { CopyEmail } from '@/components/ui/CopyEmail';
+import { GitHubStats } from '@/components/ui/GitHubStats';
 import { personalInfo } from '@/lib/data';
-import { MapPin, Mail, Phone, Github, Linkedin, Download, CheckCircle2 } from 'lucide-react';
+import { MapPin, Phone, Github, Linkedin, Download, CheckCircle2 } from 'lucide-react';
 
 const values = [
   { icon: '⚡', title: 'Performance First', description: 'I obsess over query efficiency in PostgreSQL, API response times, and bundle sizes in Next.js for production-grade applications.' },
@@ -41,17 +43,21 @@ export default function AboutPage() {
 
             {/* Contact info */}
             <div className="glass-card p-5 space-y-3">
-              {[
-                { icon: Mail, value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-                { icon: Phone, value: personalInfo.phone, href: `tel:${personalInfo.phone}` },
-                { icon: MapPin, value: personalInfo.location, href: '#' },
-              ].map(({ icon: Icon, value, href }) => (
-                <a key={value} href={href}
-                  className="flex items-center gap-3 text-sm text-[#a8a29e] hover:text-amber-400 transition group">
-                  <Icon size={14} className="text-amber-500/60 group-hover:text-amber-400 transition" />
-                  <span className="break-all">{value}</span>
-                </a>
-              ))}
+              {/* Email with copy */}
+              <div className="flex items-center gap-3">
+                <CopyEmail email={personalInfo.email} />
+              </div>
+
+              <a href={`tel:${personalInfo.phone}`}
+                className="flex items-center gap-3 text-sm text-[#a8a29e] hover:text-amber-400 transition group">
+                <Phone size={14} className="text-amber-500/60 group-hover:text-amber-400 transition" />
+                <span>{personalInfo.phone}</span>
+              </a>
+
+              <div className="flex items-center gap-3 text-sm text-[#a8a29e]">
+                <MapPin size={14} className="text-amber-500/60" />
+                <span>{personalInfo.location}</span>
+              </div>
               <div className="pt-3 border-t border-[#2a2a2a] flex gap-3">
                 <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
                   className="text-[#57534e] hover:text-amber-400 transition">
@@ -99,6 +105,9 @@ export default function AboutPage() {
                 </p>
               </div>
             </AnimatedSection>
+
+            {/* GitHub Stats */}
+            <GitHubStats />
 
             <AnimatedSection delay={0.2}>
               <h2 className="font-display text-2xl font-bold mb-5">What I Value</h2>
