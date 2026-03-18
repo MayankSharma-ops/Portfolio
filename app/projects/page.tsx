@@ -5,8 +5,74 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { projects } from '@/lib/data';
 import { Github, ExternalLink, Star } from 'lucide-react';
+import type { Project } from '@/types';
 
 const allTags = Array.from(new Set(projects.flatMap((p) => p.tags))).sort();
+
+function ProjectCard({ project, index, onTagClick }: { project: Project; index: number; onTagClick: (tag: string) => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const text = project.longDescription || project.description;
+  const isLong = text.length > 150;
+
+  return (
+    <AnimatedSection delay={0.1 * index} direction="none">
+      <div className="glass-card p-5 sm:p-6 flex flex-col group h-full">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-2">
+            {project.featured && (
+              <Star size={13} className="text-amber-400 fill-amber-400" />
+            )}
+            <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
+          </div>
+          <div className="flex gap-2">
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer"
+                 className="text-[#57534e] hover:text-amber-400 transition" aria-label="GitHub">
+                <Github size={16} />
+              </a>
+            )}
+            {project.live && (
+              <a href={project.live} target="_blank" rel="noopener noreferrer"
+                 className="text-[#57534e] hover:text-amber-400 transition" aria-label="Live">
+                <ExternalLink size={16} />
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Content */}
+        <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-sm text-[#a8a29e] leading-relaxed flex-1 mb-4">
+          {expanded || !isLong ? text : `${text.slice(0, 150)}...`}
+          {isLong && (
+            <button
+              onClick={() => setExpanded(!expanded)}
+              className="text-amber-400 ml-1 hover:underline whitespace-nowrap"
+            >
+              {expanded ? 'Show less' : 'Read more'}
+            </button>
+          )}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#2a2a2a]">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              onClick={() => onTagClick(tag)}
+              className="tag cursor-pointer"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
 
 export default function ProjectsPage() {
   const [activeTag, setActiveTag] = useState<string>('All');
@@ -53,57 +119,9 @@ export default function ProjectsPage() {
           </div>
         </AnimatedSection>
 
-        {/* Projects Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((project, i) => (
-            <AnimatedSection key={project.id} delay={0.1 * i} direction="none">
-              <div className="glass-card p-5 sm:p-6 flex flex-col group h-full">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    {project.featured && (
-                      <Star size={13} className="text-amber-400 fill-amber-400" />
-                    )}
-                    <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
-                  </div>
-                  <div className="flex gap-2">
-                    {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer"
-                        className="text-[#57534e] hover:text-amber-400 transition" aria-label="GitHub">
-                        <Github size={16} />
-                      </a>
-                    )}
-                    {project.live && (
-                      <a href={project.live} target="_blank" rel="noopener noreferrer"
-                        className="text-[#57534e] hover:text-amber-400 transition" aria-label="Live">
-                        <ExternalLink size={16} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-[#a8a29e] leading-relaxed flex-1 mb-4">
-                  {project.longDescription || project.description}
-                </p>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#2a2a2a]">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      onClick={() => setActiveTag(tag)}
-                      className="tag cursor-pointer"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </AnimatedSection>
+            <ProjectCard key={project.id} project={project} index={i} onTagClick={setActiveTag} />
           ))}
         </div>
 

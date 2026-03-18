@@ -7,14 +7,18 @@ export function MouseGlow() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [visible, setVisible] = useState(false);
 
+  const [isTouch, setIsTouch] = useState(false);
+
   useEffect(() => {
-    // Only show on non-touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
+  useEffect(() => {
+    if (isTouch) return;
 
     const handleMove = (e: MouseEvent) => {
       setMouse({ x: e.clientX, y: e.clientY });
-      if (!visible) setVisible(true);
+      setVisible(true);
     };
 
     const handleLeave = () => setVisible(false);
@@ -29,7 +33,7 @@ export function MouseGlow() {
       document.removeEventListener('mouseleave', handleLeave);
       document.removeEventListener('mouseenter', handleEnter);
     };
-  }, [visible]);
+  }, [isTouch]);
 
   if (!visible) return null;
 

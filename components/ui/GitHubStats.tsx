@@ -86,13 +86,35 @@ export function GitHubStats() {
         ) : null}
       </div>
 
-      {/* Contribution graph */}
-      <div className="glass-card p-4 sm:p-5 overflow-x-auto">
-        <p className="text-xs font-mono text-[#57534e] mb-3">Contribution Graph</p>
+      {/* GitHub Stats Cards — github-readme-stats (amber themed) */}
+      <div className="grid sm:grid-cols-2 gap-4">
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-xs font-mono text-[#57534e] mb-3">Stats Overview</p>
+          <img
+            src={`https://github-readme-stats.vercel.app/api?username=${USERNAME}&show_icons=true&hide_border=true&bg_color=00000000&title_color=f59e0b&text_color=a8a29e&icon_color=f59e0b&ring_color=f59e0b&count_private=true`}
+            alt={`${USERNAME}'s GitHub Stats`}
+            className="w-full h-auto"
+            loading="lazy"
+          />
+        </div>
+        <div className="glass-card p-4 sm:p-5 overflow-hidden">
+          <p className="text-xs font-mono text-[#57534e] mb-3">Most Used Languages</p>
+          <img
+            src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${USERNAME}&layout=compact&hide_border=true&bg_color=00000000&title_color=f59e0b&text_color=a8a29e&langs_count=8`}
+            alt={`${USERNAME}'s Top Languages`}
+            className="w-full h-auto"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      {/* Contribution streak */}
+      <div className="glass-card p-4 sm:p-5 overflow-hidden mt-4">
+        <p className="text-xs font-mono text-[#57534e] mb-3">Contribution Streak</p>
         <img
-          src={`https://ghchart.rshah.org/f59e0b/${USERNAME}`}
-          alt={`${USERNAME}'s GitHub Contribution Graph`}
-          className="w-full min-w-[640px] h-auto rounded"
+          src={`https://github-readme-streak-stats.herokuapp.com/?user=${USERNAME}&hide_border=true&background=00000000&ring=f59e0b&fire=f59e0b&currStreakLabel=f5f0e8&sideLabels=a8a29e&currStreakNum=f5f0e8&sideNums=a8a29e&dates=57534e&stroke=2a2a2a`}
+          alt={`${USERNAME}'s Contribution Streak`}
+          className="w-full h-auto"
           loading="lazy"
         />
       </div>

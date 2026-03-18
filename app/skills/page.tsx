@@ -79,27 +79,6 @@ export default function SkillsPage() {
           </div>
         </AnimatedSection>
 
-        {/* Visual Tech Stack Icons */}
-        <AnimatedSection delay={0.25}>
-          <div className="mb-14">
-            <p className="section-label mb-5 text-center">Visual Overview</p>
-            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
-              {filtered.filter((s) => s.icon).map((skill, i) => (
-                <AnimatedSection key={skill.name} delay={0.04 * i} direction="none">
-                  <div className="glass-card p-3 flex flex-col items-center gap-2 group text-center h-full">
-                    <i
-                      className={`${skill.icon} text-2xl sm:text-3xl text-[#a8a29e] group-hover:text-amber-400 transition-colors`}
-                    />
-                    <span className="text-[10px] sm:text-xs text-[#57534e] group-hover:text-[#a8a29e] transition-colors leading-tight">
-                      {skill.name}
-                    </span>
-                  </div>
-                </AnimatedSection>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
-
         {/* Detailed Skills Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((skill, i) => {
@@ -108,9 +87,18 @@ export default function SkillsPage() {
               <AnimatedSection key={skill.name} delay={0.06 * i} direction="none">
                 <div className="glass-card p-4 sm:p-5 group h-full">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="font-medium text-[#f5f0e8] group-hover:text-amber-400 transition-colors">
-                      {skill.name}
-                    </span>
+                    <div className="flex items-center gap-2.5">
+                      {skill.icon ? (
+                        <i className={`${skill.icon} text-xl text-[#a8a29e] group-hover:text-amber-400 transition-colors`} />
+                      ) : (
+                        <div className="w-6 h-6 rounded flex items-center justify-center bg-[#2a2a2a] border border-[#333] text-[#a8a29e] group-hover:text-amber-400 group-hover:border-amber-500/30 transition-colors text-xs font-bold uppercase">
+                          {skill.name.charAt(0)}
+                        </div>
+                      )}
+                      <span className="font-medium text-[#f5f0e8] group-hover:text-amber-400 transition-colors">
+                        {skill.name}
+                      </span>
+                    </div>
                     <span className={`text-xs font-mono font-semibold ${color}`}>{label}</span>
                   </div>
                   <AnimatedSkillBar level={skill.level} delay={100 * i} />

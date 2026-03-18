@@ -7,6 +7,7 @@ import { personalInfo, projects, skills } from '@/lib/data';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
 import { ParticleField } from '@/components/ui/ParticleField';
+import { TypewriterEffect } from '@/components/ui/TypewriterEffect';
 
 export default function HomePage() {
   const featuredProjects = projects.filter((p) => p.featured);
@@ -44,8 +45,8 @@ export default function HomePage() {
             >
               Hi, I&apos;m{' '}
               <span className="text-shimmer">{personalInfo.name}</span>
-              <span className="block text-[#a8a29e] text-[0.65em] sm:text-[0.9em] mt-1">
-                {personalInfo.title}
+              <span className="block text-[0.65em] sm:text-[0.9em] mt-1">
+                <TypewriterEffect />
               </span>
             </motion.h1>
 

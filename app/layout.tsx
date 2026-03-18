@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { MouseGlow } from '@/components/ui/MouseGlow';
 import { PageTransition } from '@/components/ui/PageTransition';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { personalInfo } from '@/lib/data';
 
 const playfair = Playfair_Display({
@@ -69,6 +70,7 @@ export default function RootLayout({
           <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );
