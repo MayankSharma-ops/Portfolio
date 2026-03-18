@@ -4,6 +4,7 @@ import { Playfair_Display, DM_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { MouseGlow } from '@/components/ui/MouseGlow';
 import { personalInfo } from '@/lib/data';
 
 const playfair = Playfair_Display({
@@ -48,6 +49,7 @@ export default function RootLayout({
         className={`${playfair.variable} ${dmSans.variable} ${jetbrains.variable} font-body bg-[#0a0a0a] text-[#f5f0e8] antialiased`}
       >
         <div className="noise-overlay" />
+        <MouseGlow />
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -1,4 +1,7 @@
-// components/ui/PageHeader.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+
 interface PageHeaderProps {
   label: string;
   title: string;
@@ -7,17 +10,41 @@ interface PageHeaderProps {
 
 export function PageHeader({ label, title, description }: PageHeaderProps) {
   return (
-    <div className="text-center mb-16">
-      <p className="section-label mb-4">{label}</p>
-      <h1 className="page-heading text-[#f5f0e8] mb-4">{title}</h1>
+    <div className="text-center mb-12 sm:mb-16">
+      <motion.p
+        className="section-label mb-4"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        {label}
+      </motion.p>
+      <motion.h1
+        className="page-heading text-[#f5f0e8] mb-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        {title}
+      </motion.h1>
       {description && (
-        <p className="text-[#a8a29e] max-w-xl mx-auto text-base leading-relaxed">
+        <motion.p
+          className="text-[#a8a29e] max-w-xl mx-auto text-base leading-relaxed px-4"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+        >
           {description}
-        </p>
+        </motion.p>
       )}
-      <div className="mt-6 flex justify-center">
+      <motion.div
+        className="mt-6 flex justify-center"
+        initial={{ opacity: 0, scaleX: 0 }}
+        animate={{ opacity: 1, scaleX: 1 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+      >
         <div className="h-px w-24 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
-      </div>
+      </motion.div>
     </div>
   );
 }

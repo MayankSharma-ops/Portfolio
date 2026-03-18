@@ -42,6 +42,8 @@ const config: Config = {
         'pulse-slow': 'pulse 3s ease-in-out infinite',
         'spin-slow': 'spin 8s linear infinite',
         'gradient': 'gradientShift 6s ease infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'shimmer': 'shimmer 4s linear infinite',
       },
       keyframes: {
         fadeUp: {
@@ -59,6 +61,16 @@ const config: Config = {
         gradientShift: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px) translateX(0px)', opacity: '0.3' },
+          '25%': { transform: 'translateY(-20px) translateX(10px)', opacity: '0.6' },
+          '50%': { transform: 'translateY(-10px) translateX(-5px)', opacity: '0.4' },
+          '75%': { transform: 'translateY(-25px) translateX(15px)', opacity: '0.7' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% center' },
+          '100%': { backgroundPosition: '200% center' },
         },
       },
     },

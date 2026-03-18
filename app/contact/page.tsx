@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PageHeader } from '@/components/ui/PageHeader';
+import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { personalInfo } from '@/lib/data';
 import { Mail, MapPin, Phone, Github, Linkedin, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -33,17 +34,17 @@ export default function ContactPage() {
 
   return (
     <div className="pt-24 pb-20">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <PageHeader
           label="// contact"
           title="Get in Touch"
           description="Have a project, idea, or collaboration in mind? My inbox is always open."
         />
 
-        <div className="grid md:grid-cols-5 gap-10">
+        <div className="grid md:grid-cols-5 gap-8 md:gap-10">
           {/* Left: info */}
-          <div className="md:col-span-2 space-y-6">
-            <div className="glass-card p-6 space-y-5">
+          <AnimatedSection className="md:col-span-2 space-y-6" direction="left">
+            <div className="glass-card p-5 sm:p-6 space-y-5">
               <h3 className="font-display text-lg font-semibold mb-4">Contact Details</h3>
               {[
                 { icon: Mail, label: 'Email', value: personalInfo.email, href: `mailto:${personalInfo.email}` },
@@ -63,7 +64,7 @@ export default function ContactPage() {
             </div>
 
             {/* Socials */}
-            <div className="glass-card p-6">
+            <div className="glass-card p-5 sm:p-6">
               <h3 className="font-display text-base font-semibold mb-4">Find Me Online</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
@@ -85,11 +86,11 @@ export default function ContactPage() {
                 I typically respond within <span className="text-amber-400">24–48 hours</span>. Email is the fastest way to reach me.
               </p>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Right: form */}
-          <div className="md:col-span-3">
-            <div className="glass-card p-8">
+          <AnimatedSection className="md:col-span-3" direction="right" delay={0.15}>
+            <div className="glass-card p-6 sm:p-8">
               <h3 className="font-display text-xl font-semibold mb-6">Send a Message</h3>
 
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -169,7 +170,7 @@ export default function ContactPage() {
                 </button>
               </form>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </div>

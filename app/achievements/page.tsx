@@ -1,5 +1,7 @@
-// app/achievements/page.tsx
+'use client';
+
 import { PageHeader } from '@/components/ui/PageHeader';
+import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { achievements } from '@/lib/data';
 import { ExternalLink } from 'lucide-react';
 
@@ -17,7 +19,7 @@ const categories: Record<string, { label: string; color: string }> = {
 export default function AchievementsPage() {
   return (
     <div className="pt-24 pb-20">
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <PageHeader
           label="// achievements"
           title="Milestones"
@@ -25,69 +27,73 @@ export default function AchievementsPage() {
         />
 
         {/* Timeline */}
-        <div className="relative pl-8 border-l border-[#2a2a2a] space-y-8">
-          {achievements.map((item) => {
+        <div className="relative pl-6 sm:pl-8 border-l border-[#2a2a2a] space-y-6 sm:space-y-8">
+          {achievements.map((item, i) => {
             const cat = categories[item.category] ?? categories['other'];
             return (
-              <div key={item.id} className="relative group">
-                {/* Dot */}
-                <div className="absolute -left-[33px] top-4 w-4 h-4 rounded-full bg-[#0a0a0a] border-2 border-amber-500 flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                </div>
+              <AnimatedSection key={item.id} delay={0.12 * i} direction="left">
+                <div className="relative group">
+                  {/* Dot */}
+                  <div className="absolute -left-[27px] sm:-left-[33px] top-4 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#0a0a0a] border-2 border-amber-500 flex items-center justify-center">
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-amber-500" />
+                  </div>
 
-                <div className="glass-card p-6">
-                  <div className="flex items-start gap-4">
-                    {/* Icon */}
-                    <div className="text-3xl leading-none mt-1 w-10 shrink-0 text-center">
-                      {item.icon}
-                    </div>
-
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <h3 className="font-display text-lg font-semibold text-[#f5f0e8] group-hover:text-amber-400 transition-colors leading-snug">
-                          {item.title}
-                        </h3>
-                        {item.link && (
-                          <a href={item.link} target="_blank" rel="noopener noreferrer"
-                            className="text-[#57534e] hover:text-amber-400 transition shrink-0 mt-0.5">
-                            <ExternalLink size={14} />
-                          </a>
-                        )}
+                  <div className="glass-card p-4 sm:p-6">
+                    <div className="flex items-start gap-3 sm:gap-4">
+                      {/* Icon */}
+                      <div className="text-2xl sm:text-3xl leading-none mt-1 w-8 sm:w-10 shrink-0 text-center">
+                        {item.icon}
                       </div>
 
-                      <p className="text-[#a8a29e] text-sm leading-relaxed mb-3">
-                        {item.description}
-                      </p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-2 sm:gap-3 mb-2">
+                          <h3 className="font-display text-base sm:text-lg font-semibold text-[#f5f0e8] group-hover:text-amber-400 transition-colors leading-snug">
+                            {item.title}
+                          </h3>
+                          {item.link && (
+                            <a href={item.link} target="_blank" rel="noopener noreferrer"
+                              className="text-[#57534e] hover:text-amber-400 transition shrink-0 mt-0.5">
+                              <ExternalLink size={14} />
+                            </a>
+                          )}
+                        </div>
 
-                      <div className="flex items-center justify-between flex-wrap gap-2">
-                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono border ${cat.color}`}>
-                          {cat.label}
-                        </span>
-                        <span className="font-mono text-xs text-[#57534e]">{item.date}</span>
+                        <p className="text-[#a8a29e] text-sm leading-relaxed mb-3">
+                          {item.description}
+                        </p>
+
+                        <div className="flex items-center justify-between flex-wrap gap-2">
+                          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono border ${cat.color}`}>
+                            {cat.label}
+                          </span>
+                          <span className="font-mono text-xs text-[#57534e]">{item.date}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </AnimatedSection>
             );
           })}
 
           {/* End of timeline */}
-          <div className="absolute -left-[29px] bottom-0">
+          <div className="absolute -left-[23px] sm:-left-[29px] bottom-0">
             <div className="w-2 h-2 rounded-full bg-[#2a2a2a]" />
           </div>
         </div>
 
         {/* Summary row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-14">
-          {Object.entries(categories).filter(([k]) => k !== 'other').map(([key, { label, color }]) => {
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-14">
+          {Object.entries(categories).filter(([k]) => k !== 'other').map(([key, { label, color }], i) => {
             const count = achievements.filter((a) => a.category === key).length;
             if (!count) return null;
             return (
-              <div key={key} className="glass-card p-4 text-center">
-                <p className={`font-display text-3xl font-bold ${color.split(' ')[1]}`}>{count}</p>
-                <p className="text-sm text-[#a8a29e] mt-1">{label}</p>
-              </div>
+              <AnimatedSection key={key} delay={0.1 * i} direction="none">
+                <div className="glass-card p-4 text-center">
+                  <p className={`font-display text-3xl font-bold ${color.split(' ')[1]}`}>{count}</p>
+                  <p className="text-sm text-[#a8a29e] mt-1">{label}</p>
+                </div>
+              </AnimatedSection>
             );
           })}
         </div>

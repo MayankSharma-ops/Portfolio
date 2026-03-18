@@ -1,4 +1,7 @@
+'use client';
+
 import { PageHeader } from '@/components/ui/PageHeader';
+import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { certificates } from '@/lib/data';
 import { Award, ExternalLink, Hash } from 'lucide-react';
 
@@ -24,7 +27,7 @@ export default function CertificatesPage() {
 
   return (
     <div className="pt-24 pb-20">
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
         <PageHeader
           label="// certificates"
           title="Certifications"
@@ -32,59 +35,63 @@ export default function CertificatesPage() {
         />
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
-          {Object.entries(grouped).map(([category, certs]) => {
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-14">
+          {Object.entries(grouped).map(([category, certs], i) => {
             const colorClass = categoryColors[category] || defaultColor;
             return (
-              <div key={category} className="glass-card p-4 text-center">
-                <p className={`text-2xl font-display font-bold ${colorClass.split(' ')[0]}`}>
-                  {certs.length}
-                </p>
-                <p className="text-sm text-[#a8a29e] mt-1">{category}</p>
-              </div>
+              <AnimatedSection key={category} delay={0.1 * i} direction="none">
+                <div className="glass-card p-4 text-center">
+                  <p className={`text-2xl font-display font-bold ${colorClass.split(' ')[0]}`}>
+                    {certs.length}
+                  </p>
+                  <p className="text-sm text-[#a8a29e] mt-1">{category}</p>
+                </div>
+              </AnimatedSection>
             );
           })}
         </div>
 
         {/* Certificate cards */}
-        <div className="grid sm:grid-cols-2 gap-5">
-          {certificates.map((cert) => {
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
+          {certificates.map((cert, i) => {
             const colorClass = categoryColors[cert.category] || defaultColor;
             return (
-              <div key={cert.id} className="glass-card p-6 group">
-                <div className="flex items-start gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
-                    <Award size={20} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2 mb-1">
-                      <h3 className="font-display text-base font-semibold text-[#f5f0e8] leading-snug group-hover:text-amber-400 transition-colors">
-                        {cert.title}
-                      </h3>
-                      {cert.credentialUrl && (
-                        <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer"
-                          className="text-[#57534e] hover:text-amber-400 transition shrink-0 mt-0.5">
-                          <ExternalLink size={14} />
-                        </a>
-                      )}
+              <AnimatedSection key={cert.id} delay={0.08 * i} direction="none">
+                <div className="glass-card p-5 sm:p-6 group h-full">
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                      <Award size={18} />
                     </div>
-                    <p className="text-amber-400/80 text-sm font-medium mb-1">{cert.issuer}</p>
-                    <p className="text-[#57534e] text-xs mb-3">{cert.date}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2 mb-1">
+                        <h3 className="font-display text-sm sm:text-base font-semibold text-[#f5f0e8] leading-snug group-hover:text-amber-400 transition-colors">
+                          {cert.title}
+                        </h3>
+                        {cert.credentialUrl && (
+                          <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer"
+                            className="text-[#57534e] hover:text-amber-400 transition shrink-0 mt-0.5">
+                            <ExternalLink size={14} />
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-amber-400/80 text-sm font-medium mb-1">{cert.issuer}</p>
+                      <p className="text-[#57534e] text-xs mb-3">{cert.date}</p>
 
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono border ${colorClass}`}>
-                        {cert.category}
-                      </span>
-                      {cert.credentialId && (
-                        <span className="flex items-center gap-1 font-mono text-xs text-[#57534e]">
-                          <Hash size={10} />
-                          {cert.credentialId}
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono border ${colorClass}`}>
+                          {cert.category}
                         </span>
-                      )}
+                        {cert.credentialId && (
+                          <span className="flex items-center gap-1 font-mono text-xs text-[#57534e]">
+                            <Hash size={10} />
+                            {cert.credentialId}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </AnimatedSection>
             );
           })}
         </div>

@@ -1,4 +1,7 @@
+'use client';
+
 import { PageHeader } from '@/components/ui/PageHeader';
+import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { personalInfo } from '@/lib/data';
 import { MapPin, Mail, Phone, Github, Linkedin, Download, CheckCircle2 } from 'lucide-react';
 
@@ -14,21 +17,21 @@ const interests = ['Full Stack Development', 'AI & LLMs', 'DSA & Problem Solving
 export default function AboutPage() {
   return (
     <div className="pt-24 pb-20">
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <PageHeader
           label="// about me"
           title="Who I Am"
           description="A full-stack developer driven by curiosity, precision, and the craft of building great software."
         />
 
-        <div className="grid md:grid-cols-5 gap-12 items-start">
+        <div className="grid md:grid-cols-5 gap-8 md:gap-12 items-start">
           {/* Left column */}
-          <div className="md:col-span-2 space-y-6">
+          <AnimatedSection className="md:col-span-2 space-y-6" direction="left">
             {/* Avatar */}
             <div className="glass-card gradient-border p-1">
               <div className="aspect-square rounded-xl bg-gradient-to-br from-amber-500/20 via-[#161616] to-[#111111] flex items-center justify-center">
                 <div className="text-center">
-                  <div className="font-display text-6xl font-bold text-amber-400 mb-2">
+                  <div className="font-display text-5xl sm:text-6xl font-bold text-shimmer mb-2">
                     MS
                   </div>
                   <p className="text-[#57534e] font-mono text-xs">Full Stack Web Developer</p>
@@ -46,7 +49,7 @@ export default function AboutPage() {
                 <a key={value} href={href}
                   className="flex items-center gap-3 text-sm text-[#a8a29e] hover:text-amber-400 transition group">
                   <Icon size={14} className="text-amber-500/60 group-hover:text-amber-400 transition" />
-                  {value}
+                  <span className="break-all">{value}</span>
                 </a>
               ))}
               <div className="pt-3 border-t border-[#2a2a2a] flex gap-3">
@@ -61,8 +64,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            
-              <a href={personalInfo.resumeUrl}
+            <a href={personalInfo.resumeUrl}
               download="MayankSharma_CV.pdf"
               className="btn-primary w-full justify-center flex items-center gap-2"
             >
@@ -76,11 +78,11 @@ export default function AboutPage() {
                 <p className="text-xs text-[#57534e]">Full Stack Web Developer Internship</p>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Right column */}
           <div className="md:col-span-3 space-y-10">
-            <div>
+            <AnimatedSection delay={0.1}>
               <h2 className="font-display text-2xl font-bold mb-5">The Story</h2>
               <div className="space-y-4 text-[#a8a29e] leading-relaxed">
                 <p>
@@ -96,22 +98,24 @@ export default function AboutPage() {
                   Outside of projects, I&apos;ve solved 300+ DSA problems on LeetCode and GFG, earned 5-star ratings in C++ and Python on HackerRank, and hold certifications from HackerRank, NPTEL, and Cipher Schools.
                 </p>
               </div>
-            </div>
+            </AnimatedSection>
 
-            <div>
+            <AnimatedSection delay={0.2}>
               <h2 className="font-display text-2xl font-bold mb-5">What I Value</h2>
               <div className="grid sm:grid-cols-2 gap-4">
-                {values.map(({ icon, title, description }) => (
-                  <div key={title} className="glass-card p-5">
-                    <span className="text-2xl mb-3 block">{icon}</span>
-                    <h3 className="font-semibold text-[#f5f0e8] mb-1.5">{title}</h3>
-                    <p className="text-sm text-[#a8a29e] leading-relaxed">{description}</p>
-                  </div>
+                {values.map(({ icon, title, description }, i) => (
+                  <AnimatedSection key={title} delay={0.1 * i} direction="none">
+                    <div className="glass-card p-5 h-full">
+                      <span className="text-2xl mb-3 block">{icon}</span>
+                      <h3 className="font-semibold text-[#f5f0e8] mb-1.5">{title}</h3>
+                      <p className="text-sm text-[#a8a29e] leading-relaxed">{description}</p>
+                    </div>
+                  </AnimatedSection>
                 ))}
               </div>
-            </div>
+            </AnimatedSection>
 
-            <div>
+            <AnimatedSection delay={0.3}>
               <h2 className="font-display text-2xl font-bold mb-5">Interests</h2>
               <div className="flex flex-wrap gap-2">
                 {interests.map((interest) => (
@@ -120,7 +124,7 @@ export default function AboutPage() {
                   </span>
                 ))}
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </div>
