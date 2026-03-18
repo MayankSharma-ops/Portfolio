@@ -8,8 +8,8 @@ export async function POST(req: Request) {
     
     if (event === 'push' || event === 'star' || event === 'ping') {
       // Instantly purge all cached GitHub repository fetches globally.
-      revalidateTag('github-projects');
-      return NextResponse.json({ message: 'Cache purged successfully', revalidated: true });
+      revalidateTag('github-projects', {});
+      return NextResponse.json({ message: 'Cache purged successfully', revalidated: true }, { status: 200 });
     }
 
     return NextResponse.json({ message: 'Event ignored' }, { status: 200 });
