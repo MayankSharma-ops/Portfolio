@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { AnimatedSection } from '@/components/ui/AnimatedSection';
 import { CopyEmail } from '@/components/ui/CopyEmail';
@@ -31,13 +32,15 @@ export default function AboutPage() {
           <AnimatedSection className="md:col-span-2 space-y-6" direction="left">
             {/* Avatar */}
             <div className="glass-card gradient-border p-1">
-              <div className="aspect-square rounded-xl bg-gradient-to-br from-amber-500/20 via-[#161616] to-[#111111] flex items-center justify-center">
-                <div className="text-center">
-                  <div className="font-display text-5xl sm:text-6xl font-bold text-shimmer mb-2">
-                    MS
-                  </div>
-                  <p className="text-[#57534e] font-mono text-xs">Full Stack Web Developer</p>
-                </div>
+              <div className="aspect-square rounded-xl overflow-hidden relative">
+                <Image
+                  src="/profile.jpg"
+                  alt="Mayank Sharma"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 40vw, 33vw"
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 
