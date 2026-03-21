@@ -49,7 +49,7 @@ export function MouseGlow() {
           left: mouse.x - 250,
           top: mouse.y - 250,
           background:
-            'radial-gradient(circle, rgba(245,158,11,0.06) 0%, rgba(245,158,11,0.02) 40%, transparent 70%)',
+            'radial-gradient(circle, rgba(var(--amber-rgb), 0.08) 0%, rgba(var(--amber-rgb), 0.03) 40%, transparent 70%)',
           transition: 'left 0.1s ease-out, top 0.1s ease-out',
         }}
       />

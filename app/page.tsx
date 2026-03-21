@@ -19,7 +19,7 @@ export default function HomePage() {
       {/* ── Hero ── */}
       <section className="relative min-h-screen dot-grid flex items-center pt-16 overflow-hidden">
         {/* Animated glow orb */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none glow-pulse" />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-amber/5 rounded-full blur-[120px] pointer-events-none glow-pulse" />
 
         <ParticleField count={18} />
 
@@ -27,13 +27,13 @@ export default function HomePage() {
           <div className="max-w-3xl">
             {/* Status Badge */}
             <motion.div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/5 mb-6 sm:mb-8"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-amber/30 bg-amber/5 mb-6 sm:mb-8"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-xs font-mono text-amber-400">
+              <span className="text-xs font-mono text-amber">
                 {personalInfo.availableForWork ? 'Available for new opportunities' : 'Currently unavailable'}
               </span>
             </motion.div>
@@ -52,7 +52,7 @@ export default function HomePage() {
             </motion.h1>
 
             <motion.p
-              className="text-[#a8a29e] text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl"
+              className="text-text-secondary text-base sm:text-lg leading-relaxed mb-6 sm:mb-8 max-w-xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
@@ -61,12 +61,12 @@ export default function HomePage() {
             </motion.p>
 
             <motion.div
-              className="flex items-center gap-2 text-[#57534e] text-sm mb-8 sm:mb-10"
+              className="flex items-center gap-2 text-text-muted text-sm mb-8 sm:mb-10"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.45 }}
             >
-              <MapPin size={14} className="text-amber-500/60" />
+              <MapPin size={14} className="text-amber/60" />
               {personalInfo.location}
             </motion.div>
 
@@ -98,11 +98,11 @@ export default function HomePage() {
               transition={{ duration: 0.5, delay: 0.7 }}
             >
               <a href={personalInfo.github} target="_blank" rel="noopener noreferrer"
-                className="text-[#57534e] hover:text-amber-400 transition hover:scale-110 transform">
+                className="text-text-muted hover:text-amber transition hover:scale-110 transform">
                 <Github size={20} />
               </a>
               <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer"
-                className="text-[#57534e] hover:text-amber-400 transition hover:scale-110 transform">
+                className="text-text-muted hover:text-amber transition hover:scale-110 transform">
                 <Linkedin size={20} />
               </a>
             </motion.div>
@@ -115,14 +115,14 @@ export default function HomePage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.5 }}
         >
-          <div className="w-px h-10 bg-gradient-to-b from-amber-500/50 to-transparent" />
-          <span className="text-[#57534e] text-xs font-mono">scroll</span>
+          <div className="w-px h-10 bg-gradient-to-b from-amber/50 to-transparent" />
+          <span className="text-text-muted text-xs font-mono">scroll</span>
         </motion.div>
       </section>
 
       {/* ── Stats strip ── */}
       <AnimatedSection>
-        <section className="border-y border-[#2a2a2a] bg-[#111111]">
+        <section className="border-y border-border bg-bg-secondary">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
               {[
@@ -134,9 +134,9 @@ export default function HomePage() {
                 <div key={label} className="text-center">
                   <AnimatedCounter
                     value={value}
-                    className="font-display text-3xl font-bold text-amber-400"
+                    className="font-display text-3xl font-bold text-amber"
                   />
-                  <p className="text-[#57534e] text-xs sm:text-sm mt-1">{label}</p>
+                  <p className="text-text-muted text-xs sm:text-sm mt-1">{label}</p>
                 </div>
               ))}
             </div>
@@ -163,18 +163,18 @@ export default function HomePage() {
             <AnimatedSection key={project.id} delay={0.15 * i}>
               <div className="glass-card p-5 sm:p-6 flex flex-col group h-full">
                 <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                  <div className="w-10 h-10 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber">
                     <Sparkles size={18} />
                   </div>
                   <div className="flex items-center gap-3">
                     {project.live && <LiveBadge url={project.live} />}
-                    <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
+                    <span className="font-mono text-xs text-text-muted">{project.year}</span>
                   </div>
                 </div>
-                <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
+                <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-[#a8a29e] text-sm leading-relaxed flex-1 mb-4">
+                <p className="text-text-secondary text-sm leading-relaxed flex-1 mb-4">
                   {project.description}
                 </p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
@@ -182,16 +182,16 @@ export default function HomePage() {
                     <span key={tag} className="tag">{tag}</span>
                   ))}
                 </div>
-                <div className="flex gap-3 pt-3 border-t border-[#2a2a2a]">
+                <div className="flex gap-3 pt-3 border-t border-border">
                   {project.github && (
                     <a href={project.github} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs text-[#57534e] hover:text-amber-400 transition">
+                      className="flex items-center gap-1.5 text-xs text-text-muted hover:text-amber transition">
                       <Github size={13} /> Code
                     </a>
                   )}
                   {project.live && (
                     <a href={project.live} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs text-[#57534e] hover:text-amber-400 transition">
+                      className="flex items-center gap-1.5 text-xs text-text-muted hover:text-amber transition">
                       <ArrowRight size={13} /> Live Demo
                     </a>
                   )}
@@ -210,7 +210,7 @@ export default function HomePage() {
 
       {/* ── Top Skills ── */}
       <AnimatedSection>
-        <section className="bg-[#111111] border-y border-[#2a2a2a]">
+        <section className="bg-bg-secondary border-y border-border">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
             <div className="mb-10 sm:mb-12">
               <p className="section-label mb-2">Expertise</p>
@@ -221,8 +221,8 @@ export default function HomePage() {
                 <AnimatedSection key={skill.name} delay={0.08 * i} direction="none">
                   <div className="glass-card p-3 sm:p-4">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-xs sm:text-sm font-medium text-[#f5f0e8]">{skill.name}</span>
-                      <span className="font-mono text-xs text-amber-400">{skill.level}%</span>
+                      <span className="text-xs sm:text-sm font-medium text-text-primary">{skill.name}</span>
+                      <span className="font-mono text-xs text-amber">{skill.level}%</span>
                     </div>
                     <div className="skill-bar">
                       <div className="skill-bar-fill" style={{ width: `${skill.level}%` }} />
@@ -248,7 +248,7 @@ export default function HomePage() {
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
               Have a project in mind?
             </h2>
-            <p className="text-[#a8a29e] max-w-md mx-auto mb-8 px-4">
+            <p className="text-text-secondary max-w-md mx-auto mb-8 px-4">
               I&apos;m always open to discussing new projects, creative ideas, or opportunities to collaborate.
             </p>
             <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3">

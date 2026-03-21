@@ -35,43 +35,43 @@ export default function ResumePage() {
         <div className="mb-16">
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+              <div className="w-9 h-9 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber">
                 <Briefcase size={16} />
               </div>
               <h2 className="font-display text-2xl font-bold">Training</h2>
             </div>
           </AnimatedSection>
 
-          <div className="relative pl-5 sm:pl-6 border-l border-[#2a2a2a] space-y-8 sm:space-y-10">
+          <div className="relative pl-5 sm:pl-6 border-l border-border space-y-8 sm:space-y-10">
             {work.map((exp, i) => (
               <AnimatedSection key={exp.id} delay={0.15 * i} direction="left">
                 <div className="relative">
-                  <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-3 h-3 rounded-full bg-amber-500 ring-4 ring-[#0a0a0a]" />
+                  <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-3 h-3 rounded-full bg-amber ring-4 ring-[#0a0a0a]" />
                   <div className="glass-card p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                       <div>
-                        <h3 className="font-display text-lg sm:text-xl font-semibold text-[#f5f0e8]">{exp.role}</h3>
-                        <p className="text-amber-400 font-medium text-sm">{exp.company}</p>
+                        <h3 className="font-display text-lg sm:text-xl font-semibold text-text-primary">{exp.role}</h3>
+                        <p className="text-amber font-medium text-sm">{exp.company}</p>
                       </div>
                       <div className="sm:text-right">
-                        <p className="font-mono text-xs text-[#57534e] bg-[#111111] px-2.5 py-1 rounded-md border border-[#2a2a2a] whitespace-nowrap w-fit">
+                        <p className="font-mono text-xs text-text-muted bg-bg-secondary px-2.5 py-1 rounded-md border border-border whitespace-nowrap w-fit">
                           {exp.startDate} — {exp.endDate}
                         </p>
-                        <p className="text-[#57534e] text-xs mt-1">{exp.location}</p>
+                        <p className="text-text-muted text-xs mt-1">{exp.location}</p>
                       </div>
                     </div>
 
                     <ul className="space-y-2 mb-4">
                       {exp.description.map((point, j) => (
-                        <li key={j} className="flex gap-2.5 text-sm text-[#a8a29e] leading-relaxed">
-                          <ArrowRight size={13} className="text-amber-500/60 mt-0.5 shrink-0" />
+                        <li key={j} className="flex gap-2.5 text-sm text-text-secondary leading-relaxed">
+                          <ArrowRight size={13} className="text-amber/60 mt-0.5 shrink-0" />
                           {point}
                         </li>
                       ))}
                     </ul>
 
                     {exp.technologies.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#2a2a2a]">
+                      <div className="flex flex-wrap gap-1.5 pt-3 border-t border-border">
                         {exp.technologies.map((tech) => (
                           <span key={tech} className="tag">{tech}</span>
                         ))}
@@ -88,33 +88,33 @@ export default function ResumePage() {
         <div>
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+              <div className="w-9 h-9 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber">
                 <GraduationCap size={16} />
               </div>
               <h2 className="font-display text-2xl font-bold">Education</h2>
             </div>
           </AnimatedSection>
 
-          <div className="relative pl-5 sm:pl-6 border-l border-[#2a2a2a] space-y-5 sm:space-y-6">
+          <div className="relative pl-5 sm:pl-6 border-l border-border space-y-5 sm:space-y-6">
             {education.map((exp, i) => (
               <AnimatedSection key={exp.id} delay={0.15 * i} direction="left">
                 <div className="relative">
-                  <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-3 h-3 rounded-full bg-amber-500/50 ring-4 ring-[#0a0a0a]" />
+                  <div className="absolute -left-[23px] sm:-left-[25px] top-1.5 w-3 h-3 rounded-full bg-amber/50 ring-4 ring-[#0a0a0a]" />
                   <div className="glass-card p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
                       <div>
-                        <h3 className="font-display text-lg sm:text-xl font-semibold text-[#f5f0e8]">{exp.role}</h3>
-                        <p className="text-amber-400 font-medium text-sm">{exp.company}</p>
-                        <p className="text-[#57534e] text-xs mt-0.5">{exp.location}</p>
+                        <h3 className="font-display text-lg sm:text-xl font-semibold text-text-primary">{exp.role}</h3>
+                        <p className="text-amber font-medium text-sm">{exp.company}</p>
+                        <p className="text-text-muted text-xs mt-0.5">{exp.location}</p>
                       </div>
-                      <p className="font-mono text-xs text-[#57534e] bg-[#111111] px-2.5 py-1 rounded-md border border-[#2a2a2a] h-fit whitespace-nowrap w-fit">
+                      <p className="font-mono text-xs text-text-muted bg-bg-secondary px-2.5 py-1 rounded-md border border-border h-fit whitespace-nowrap w-fit">
                         {exp.startDate} — {exp.endDate}
                       </p>
                     </div>
                     <ul className="space-y-1.5">
                       {exp.description.map((point, j) => (
-                        <li key={j} className="flex gap-2.5 text-sm text-[#a8a29e] leading-relaxed">
-                          <ArrowRight size={13} className="text-amber-500/60 mt-0.5 shrink-0" />
+                        <li key={j} className="flex gap-2.5 text-sm text-text-secondary leading-relaxed">
+                          <ArrowRight size={13} className="text-amber/60 mt-0.5 shrink-0" />
                           {point}
                         </li>
                       ))}

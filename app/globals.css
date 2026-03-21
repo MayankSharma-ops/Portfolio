@@ -8,6 +8,7 @@
   --bg-secondary: #111111;
   --bg-card: #161616;
   --bg-hover: #1e1e1e;
+  --amber-rgb: 245, 158, 11;
   --amber: #f59e0b;
   --amber-light: #fbbf24;
   --amber-dim: #d97706;
@@ -18,6 +19,22 @@
   --border-light: #3a3a3a;
 }
 
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f5f9;
+  --amber-rgb: 79, 70, 229;
+  --amber: #4f46e5;
+  --amber-light: #6366f1;
+  --amber-dim: #4338ca;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
@@ -25,7 +42,7 @@
 ::-webkit-scrollbar-thumb:hover { background: var(--amber-dim); }
 
 /* ── Selection ── */
-::selection { background: rgba(245, 158, 11, 0.25); color: var(--text-primary); }
+::selection { background: rgba(var(--amber-rgb), 0.25); color: var(--text-primary); }
 
 /* ── Noise Texture Overlay ── */
 .noise-overlay {
@@ -36,13 +53,16 @@
   opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 }
+[data-theme="light"] .noise-overlay {
+  opacity: 0.015;
+}
 
 /* ── Typography ── */
 h1, h2, h3 { font-family: var(--font-display); }
 
 /* ── Amber glow ── */
 .amber-glow {
-  box-shadow: 0 0 40px rgba(245, 158, 11, 0.12);
+  box-shadow: 0 0 40px rgba(var(--amber-rgb), 0.12);
 }
 
 .amber-text {
@@ -60,9 +80,17 @@ h1, h2, h3 { font-family: var(--font-display); }
 }
 .glass-card:hover {
   border-color: var(--border-light);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(245, 158, 11, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--amber-rgb), 0.05);
   background: rgba(30, 30, 30, 0.8);
   transform: translateY(-2px);
+}
+[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+[data-theme="light"] .glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(var(--amber-rgb), 0.1);
 }
 
 /* ── Section titles ── */
@@ -96,14 +124,14 @@ h1, h2, h3 { font-family: var(--font-display); }
   border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  background: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background: rgba(var(--amber-rgb), 0.08);
+  border: 1px solid rgba(var(--amber-rgb), 0.2);
   color: var(--amber);
   transition: background 0.2s, border-color 0.2s;
 }
 .tag:hover {
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(var(--amber-rgb), 0.15);
+  border-color: rgba(var(--amber-rgb), 0.4);
 }
 
 /* ── Timeline ── */
@@ -123,7 +151,7 @@ h1, h2, h3 { font-family: var(--font-display); }
   gap: 8px;
   padding: 10px 22px;
   background: var(--amber);
-  color: #0a0a0a;
+  color: var(--bg-primary);
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.9rem;
@@ -132,7 +160,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 .btn-primary:hover {
   background: var(--amber-light);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 6px 20px rgba(var(--amber-rgb), 0.35);
 }
 
 .btn-outline {
@@ -150,7 +178,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 .btn-outline:hover {
   border-color: var(--amber);
   color: var(--amber);
-  background: rgba(245, 158, 11, 0.05);
+  background: rgba(var(--amber-rgb), 0.05);
   transform: translateY(-1px);
 }
 
@@ -177,7 +205,7 @@ h1, h2, h3 { font-family: var(--font-display); }
 
 /* ── Hero background dots ── */
 .dot-grid {
-  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(var(--amber-rgb), 0.12) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
@@ -299,7 +327,7 @@ h1, h2, h3 { font-family: var(--font-display); }
   z-index: 9999;
   padding: 12px 24px;
   background: var(--amber);
-  color: #0a0a0a;
+  color: var(--bg-primary);
   font-weight: 600;
   font-size: 0.9rem;
   border-radius: 0 0 8px 8px;

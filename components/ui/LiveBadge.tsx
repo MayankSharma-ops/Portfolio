@@ -17,7 +17,7 @@ export function LiveBadge({ url }: { url: string }) {
     return (
       <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#111] border border-[#222] opacity-50">
         <span className="w-2 h-2 rounded-full bg-[#333] animate-pulse" />
-        <span className="text-[10px] font-mono text-[#57534e]">Checking</span>
+        <span className="text-[10px] font-mono text-text-muted">Checking</span>
       </div>
     );
   }

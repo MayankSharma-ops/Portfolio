@@ -35,21 +35,21 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-2">
             {project.featured && (
-              <Star size={13} className="text-amber-400 fill-amber-400" />
+              <Star size={13} className="text-amber fill-amber-400" />
             )}
-            <span className="font-mono text-xs text-[#57534e]">{project.year}</span>
+            <span className="font-mono text-xs text-text-muted">{project.year}</span>
           </div>
           <div className="flex gap-2">
             {project.live && <LiveBadge url={project.live} />}
             {project.github && (
               <a href={project.github} target="_blank" rel="noopener noreferrer"
-                 className="text-[#57534e] hover:text-amber-400 transition" aria-label="GitHub">
+                 className="text-text-muted hover:text-amber transition" aria-label="GitHub">
                 <Github size={16} />
               </a>
             )}
             {project.live && (
               <a href={project.live} target="_blank" rel="noopener noreferrer"
-                 className="text-[#57534e] hover:text-amber-400 transition" aria-label="Live">
+                 className="text-text-muted hover:text-amber transition" aria-label="Live">
                 <ExternalLink size={16} />
               </a>
             )}
@@ -57,15 +57,15 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
         </div>
 
         {/* Content */}
-        <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber-400 transition-colors">
+        <h3 className="font-display text-lg sm:text-xl font-semibold mb-2 group-hover:text-amber transition-colors">
           {project.title}
         </h3>
-        <p className="text-sm text-[#a8a29e] leading-relaxed flex-1 mb-4">
+        <p className="text-sm text-text-secondary leading-relaxed flex-1 mb-4">
           {expanded || !isLong ? text : `${text.slice(0, 150)}...`}
           {isLong && (
             <button
               onClick={() => setExpanded(!expanded)}
-              className="text-amber-400 ml-1 hover:underline whitespace-nowrap"
+              className="text-amber ml-1 hover:underline whitespace-nowrap"
             >
               {expanded ? 'Show less' : 'Read more'}
             </button>
@@ -73,7 +73,7 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
         </p>
 
         {/* Tags & GitHub Stats */}
-        <div className="pt-3 border-t border-[#2a2a2a] mt-auto">
+        <div className="pt-3 border-t border-border mt-auto">
           <div className="flex flex-wrap gap-1.5 mb-3">
             {project.tags.map((tag) => (
               <span
@@ -87,15 +87,15 @@ function ProjectCard({ project, index, onTagClick }: { project: Project; index: 
           </div>
 
           {ghStats && (
-            <div className="flex items-center gap-3 text-[10px] sm:text-xs font-mono text-[#57534e]">
+            <div className="flex items-center gap-3 text-[10px] sm:text-xs font-mono text-text-muted">
               {ghStats.language && (
                 <span className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-amber-500/50" />
+                  <span className="w-2 h-2 rounded-full bg-amber/50" />
                   {ghStats.language}
                 </span>
               )}
               <span className="flex items-center gap-1">
-                <Star size={12} className="text-amber-500/60" /> {ghStats.stars}
+                <Star size={12} className="text-amber/60" /> {ghStats.stars}
               </span>
               <span className="flex items-center gap-1">
                 <GitCommit size={12} /> {new Date(ghStats.lastCommit).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
@@ -135,8 +135,8 @@ export default function ProjectsPage() {
                 onClick={() => setActiveTag(tag)}
                 className={`px-3 py-1.5 rounded-md text-xs font-mono border transition-all whitespace-nowrap shrink-0 ${
                   activeTag === tag
-                    ? 'bg-amber-500 text-black border-amber-500'
-                    : 'border-[#2a2a2a] text-[#a8a29e] hover:border-amber-500/40 hover:text-amber-400'
+                    ? 'bg-amber text-black border-amber'
+                    : 'border-border text-text-secondary hover:border-amber/40 hover:text-amber'
                 }`}
               >
                 {tag}
@@ -145,7 +145,7 @@ export default function ProjectsPage() {
             {!showAll && allTags.length > 10 && (
               <button
                 onClick={() => setShowAll(true)}
-                className="px-3 py-1.5 rounded-md text-xs font-mono border border-dashed border-[#2a2a2a] text-[#57534e] hover:border-amber-500/40 hover:text-amber-400 transition whitespace-nowrap shrink-0"
+                className="px-3 py-1.5 rounded-md text-xs font-mono border border-dashed border-border text-text-muted hover:border-amber/40 hover:text-amber transition whitespace-nowrap shrink-0"
               >
                 +{allTags.length - 10} more
               </button>
@@ -161,8 +161,8 @@ export default function ProjectsPage() {
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-[#57534e]">No projects found for &ldquo;{activeTag}&rdquo;</p>
-            <button onClick={() => setActiveTag('All')} className="mt-4 text-amber-400 text-sm hover:underline">
+            <p className="text-text-muted">No projects found for &ldquo;{activeTag}&rdquo;</p>
+            <button onClick={() => setActiveTag('All')} className="mt-4 text-amber text-sm hover:underline">
               Clear filter
             </button>
           </div>

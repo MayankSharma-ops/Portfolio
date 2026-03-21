@@ -39,7 +39,7 @@ export function GitHubStats() {
   return (
     <AnimatedSection delay={0.2}>
       <h2 className="font-display text-2xl font-bold mb-5 flex items-center gap-2">
-        <Github size={22} className="text-amber-400" />
+        <Github size={22} className="text-amber" />
         GitHub
       </h2>
 
@@ -58,29 +58,29 @@ export function GitHubStats() {
           <>
             <div className="glass-card p-4 text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <GitFork size={14} className="text-amber-400" />
-                <span className="font-display text-2xl font-bold text-amber-400">{data.public_repos}</span>
+                <GitFork size={14} className="text-amber" />
+                <span className="font-display text-2xl font-bold text-amber">{data.public_repos}</span>
               </div>
-              <p className="text-xs text-[#57534e]">Repositories</p>
+              <p className="text-xs text-text-muted">Repositories</p>
             </div>
             <div className="glass-card p-4 text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <Users size={14} className="text-amber-400" />
-                <span className="font-display text-2xl font-bold text-amber-400">{data.followers}</span>
+                <Users size={14} className="text-amber" />
+                <span className="font-display text-2xl font-bold text-amber">{data.followers}</span>
               </div>
-              <p className="text-xs text-[#57534e]">Followers</p>
+              <p className="text-xs text-text-muted">Followers</p>
             </div>
             <a
               href={data.html_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass-card p-4 text-center hover:border-amber-500/40 transition group"
+              className="glass-card p-4 text-center hover:border-amber/40 transition group"
             >
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <Star size={14} className="text-amber-400" />
-                <span className="font-display text-lg font-bold text-[#f5f0e8] group-hover:text-amber-400 transition">View Profile</span>
+                <Star size={14} className="text-amber" />
+                <span className="font-display text-lg font-bold text-text-primary group-hover:text-amber transition">View Profile</span>
               </div>
-              <p className="text-xs text-[#57534e]">@{USERNAME}</p>
+              <p className="text-xs text-text-muted">@{USERNAME}</p>
             </a>
           </>
         ) : null}
@@ -89,7 +89,7 @@ export function GitHubStats() {
       {/* GitHub Stats Cards — github-readme-stats (amber themed) */}
       <div className="grid sm:grid-cols-2 gap-4">
         <div className="glass-card p-4 sm:p-5 overflow-hidden">
-          <p className="text-xs font-mono text-[#57534e] mb-3">Stats Overview</p>
+          <p className="text-xs font-mono text-text-muted mb-3">Stats Overview</p>
           <img
             src={`https://github-readme-stats.vercel.app/api?username=${USERNAME}&show_icons=true&hide_border=true&bg_color=00000000&title_color=f59e0b&text_color=a8a29e&icon_color=f59e0b&ring_color=f59e0b&count_private=true`}
             alt={`${USERNAME}'s GitHub Stats`}
@@ -98,7 +98,7 @@ export function GitHubStats() {
           />
         </div>
         <div className="glass-card p-4 sm:p-5 overflow-hidden">
-          <p className="text-xs font-mono text-[#57534e] mb-3">Most Used Languages</p>
+          <p className="text-xs font-mono text-text-muted mb-3">Most Used Languages</p>
           <img
             src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${USERNAME}&layout=compact&hide_border=true&bg_color=00000000&title_color=f59e0b&text_color=a8a29e&langs_count=8`}
             alt={`${USERNAME}'s Top Languages`}
@@ -110,7 +110,7 @@ export function GitHubStats() {
 
       {/* Contribution streak */}
       <div className="glass-card p-4 sm:p-5 overflow-hidden mt-4">
-        <p className="text-xs font-mono text-[#57534e] mb-3">Contribution Streak</p>
+        <p className="text-xs font-mono text-text-muted mb-3">Contribution Streak</p>
         <img
           src={`https://github-readme-streak-stats.herokuapp.com/?user=${USERNAME}&hide_border=true&background=00000000&ring=f59e0b&fire=f59e0b&currStreakLabel=f5f0e8&sideLabels=a8a29e&currStreakNum=f5f0e8&sideNums=a8a29e&dates=57534e&stroke=2a2a2a`}
           alt={`${USERNAME}'s Contribution Streak`}

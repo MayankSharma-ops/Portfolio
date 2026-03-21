@@ -106,11 +106,11 @@ export function CommandPalette() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -20 }}
           transition={{ duration: 0.15, ease: 'easeOut' }}
-          className="relative w-full max-w-2xl bg-[#111] border border-[#2a2a2a] rounded-xl shadow-2xl overflow-hidden flex flex-col"
+          className="relative w-full max-w-2xl bg-[#111] border border-border rounded-xl shadow-2xl overflow-hidden flex flex-col"
         >
           {/* Header/Input */}
-          <div className="flex items-center px-4 border-b border-[#2a2a2a]">
-            <Search className="w-5 h-5 text-[#a8a29e]" />
+          <div className="flex items-center px-4 border-b border-border">
+            <Search className="w-5 h-5 text-text-secondary" />
             <input
               ref={inputRef}
               value={query}
@@ -131,10 +131,10 @@ export function CommandPalette() {
                   setIsOpen(false);
                 }
               }}
-              className="w-full bg-transparent border-none text-lg text-[#f5f0e8] placeholder:text-[#57534e] focus:outline-none focus:ring-0 py-4 px-3"
+              className="w-full bg-transparent border-none text-lg text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-0 py-4 px-3"
               placeholder="Search projects, skills, or jump to pages..."
             />
-            <div className="text-[10px] font-mono bg-[#222] text-[#a8a29e] px-1.5 py-1 rounded border border-[#333]">
+            <div className="text-[10px] font-mono bg-[#222] text-text-secondary px-1.5 py-1 rounded border border-[#333]">
               ESC
             </div>
           </div>
@@ -142,7 +142,7 @@ export function CommandPalette() {
           {/* Results List */}
           <div className="max-h-[60vh] overflow-y-auto p-2">
             {filteredItems.length === 0 ? (
-              <p className="p-8 text-center text-[#57534e] text-sm">No results found for "{query}"</p>
+              <p className="p-8 text-center text-text-muted text-sm">No results found for "{query}"</p>
             ) : (
               <div className="flex flex-col gap-1">
                 {filteredItems.map((item, i) => {
@@ -156,7 +156,7 @@ export function CommandPalette() {
                       }}
                       onMouseEnter={() => setActiveIndex(i)}
                       className={`flex items-center justify-between p-3 rounded-lg cursor-pointer transition-colors ${
-                        isActive ? 'bg-amber-500/10 text-amber-500' : 'text-[#a8a29e] hover:bg-[#1a1a1a]'
+                        isActive ? 'bg-amber/10 text-amber' : 'text-text-secondary hover:bg-[#1a1a1a]'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -164,7 +164,7 @@ export function CommandPalette() {
                         <span className="font-medium text-sm">{item.title}</span>
                       </div>
                       {item.subtitle && (
-                        <span className={`text-xs font-mono capitalize ${isActive ? 'text-amber-500/60' : 'text-[#57534e]'}`}>
+                        <span className={`text-xs font-mono capitalize ${isActive ? 'text-amber/60' : 'text-text-muted'}`}>
                           {item.type}: {item.subtitle}
                         </span>
                       )}
@@ -176,7 +176,7 @@ export function CommandPalette() {
           </div>
           
           {/* Footer */}
-          <div className="px-4 py-2 border-t border-[#2a2a2a] bg-[#0a0a0a] flex items-center gap-4 text-[10px] text-[#57534e] font-mono">
+          <div className="px-4 py-2 border-t border-border bg-bg-primary flex items-center gap-4 text-[10px] text-text-muted font-mono">
             <span className="flex items-center gap-1">
               <span className="bg-[#222] border border-[#333] rounded px-1">↵</span> to select
             </span>

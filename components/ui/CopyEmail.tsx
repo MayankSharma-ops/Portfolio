@@ -32,12 +32,12 @@ export function CopyEmail({ email, className = '' }: CopyEmailProps) {
 
   return (
     <span className={`inline-flex items-center gap-2 group ${className}`}>
-      <a href={`mailto:${email}`} className="text-sm text-[#a8a29e] hover:text-amber-400 transition break-all">
+      <a href={`mailto:${email}`} className="text-sm text-text-secondary hover:text-amber transition break-all">
         {email}
       </a>
       <button
         onClick={handleCopy}
-        className="relative p-1 rounded-md text-[#57534e] hover:text-amber-400 hover:bg-amber-500/10 transition shrink-0"
+        className="relative p-1 rounded-md text-text-muted hover:text-amber hover:bg-amber/10 transition shrink-0"
         aria-label="Copy email address"
         title={copied ? 'Copied!' : 'Copy email'}
       >
@@ -47,7 +47,7 @@ export function CopyEmail({ email, className = '' }: CopyEmailProps) {
           <Copy size={13} />
         )}
         {copied && (
-          <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono bg-[#1e1e1e] border border-[#2a2a2a] rounded text-green-400 whitespace-nowrap">
+          <span className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 text-xs font-mono bg-bg-hover border border-border rounded text-green-400 whitespace-nowrap">
             Copied!
           </span>
         )}

@@ -16,7 +16,7 @@ const categoryColors: Record<string, string> = {
   Languages: 'text-pink-400 bg-pink-400/10 border-pink-400/20',
 };
 
-const defaultColor = 'text-amber-400 bg-amber-400/10 border-amber-400/20';
+const defaultColor = 'text-amber bg-amber/10 border-amber/20';
 
 export default function CertificatesPage() {
   const grouped = certificates.reduce((acc, cert) => {
@@ -44,7 +44,7 @@ export default function CertificatesPage() {
                   <p className={`text-2xl font-display font-bold ${colorClass.split(' ')[0]}`}>
                     {certs.length}
                   </p>
-                  <p className="text-sm text-[#a8a29e] mt-1">{category}</p>
+                  <p className="text-sm text-text-secondary mt-1">{category}</p>
                 </div>
               </AnimatedSection>
             );
@@ -59,30 +59,30 @@ export default function CertificatesPage() {
               <AnimatedSection key={cert.id} delay={0.08 * i} direction="none">
                 <div className="glass-card p-5 sm:p-6 group h-full">
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                    <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-amber/10 border border-amber/20 flex items-center justify-center text-amber shrink-0 mt-0.5">
                       <Award size={18} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <h3 className="font-display text-sm sm:text-base font-semibold text-[#f5f0e8] leading-snug group-hover:text-amber-400 transition-colors">
+                        <h3 className="font-display text-sm sm:text-base font-semibold text-text-primary leading-snug group-hover:text-amber transition-colors">
                           {cert.title}
                         </h3>
                         {cert.credentialUrl && (
                           <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer"
-                            className="text-[#57534e] hover:text-amber-400 transition shrink-0 mt-0.5">
+                            className="text-text-muted hover:text-amber transition shrink-0 mt-0.5">
                             <ExternalLink size={14} />
                           </a>
                         )}
                       </div>
-                      <p className="text-amber-400/80 text-sm font-medium mb-1">{cert.issuer}</p>
-                      <p className="text-[#57534e] text-xs mb-3">{cert.date}</p>
+                      <p className="text-amber/80 text-sm font-medium mb-1">{cert.issuer}</p>
+                      <p className="text-text-muted text-xs mb-3">{cert.date}</p>
 
                       <div className="flex items-center justify-between flex-wrap gap-2">
                         <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mono border ${colorClass}`}>
                           {cert.category}
                         </span>
                         {cert.credentialId && (
-                          <span className="flex items-center gap-1 font-mono text-xs text-[#57534e]">
+                          <span className="flex items-center gap-1 font-mono text-xs text-text-muted">
                             <Hash size={10} />
                             {cert.credentialId}
                           </span>

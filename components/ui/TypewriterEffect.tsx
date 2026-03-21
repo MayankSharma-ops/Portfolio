@@ -51,11 +51,11 @@ export function TypewriterEffect() {
 
   return (
     <span className="inline-flex items-baseline">
-      <span className="text-[#a8a29e] min-w-[20px]">
+      <span className="text-text-secondary min-w-[20px]">
         {displayText}
       </span>
       <motion.span
-        className="inline-block w-[2px] sm:w-[3px] h-[0.85em] bg-amber-400 ml-0.5 relative top-[0.05em]"
+        className="inline-block w-[2px] sm:w-[3px] h-[0.85em] bg-amber ml-0.5 relative top-[0.05em]"
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.6, repeat: Infinity, repeatType: 'reverse' }}
       />

@@ -20,7 +20,7 @@ export function PageHeader({ label, title, description }: PageHeaderProps) {
         {label}
       </motion.p>
       <motion.h1
-        className="page-heading text-[#f5f0e8] mb-4"
+        className="page-heading text-text-primary mb-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -29,7 +29,7 @@ export function PageHeader({ label, title, description }: PageHeaderProps) {
       </motion.h1>
       {description && (
         <motion.p
-          className="text-[#a8a29e] max-w-xl mx-auto text-base leading-relaxed px-4"
+          className="text-text-secondary max-w-xl mx-auto text-base leading-relaxed px-4"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.35 }}
@@ -43,7 +43,7 @@ export function PageHeader({ label, title, description }: PageHeaderProps) {
         animate={{ opacity: 1, scaleX: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <div className="h-px w-24 bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
+        <div className="h-px w-24 bg-gradient-to-r from-transparent via-amber to-transparent" />
       </motion.div>
     </div>
   );

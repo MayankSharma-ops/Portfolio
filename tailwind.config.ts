@@ -15,24 +15,24 @@ const config: Config = {
       },
       colors: {
         bg: {
-          primary: '#0a0a0a',
-          secondary: '#111111',
-          card: '#161616',
-          hover: '#1e1e1e',
+          primary: 'var(--bg-primary)',
+          secondary: 'var(--bg-secondary)',
+          card: 'var(--bg-card)',
+          hover: 'var(--bg-hover)',
         },
         amber: {
-          DEFAULT: '#f59e0b',
-          light: '#fbbf24',
-          dim: '#d97706',
+          DEFAULT: 'rgba(var(--amber-rgb), <alpha-value>)',
+          light: 'var(--amber-light)',
+          dim: 'var(--amber-dim)',
         },
         text: {
-          primary: '#f5f0e8',
-          secondary: '#a8a29e',
-          muted: '#57534e',
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted: 'var(--text-muted)',
         },
         border: {
-          DEFAULT: '#2a2a2a',
-          light: '#3a3a3a',
+          DEFAULT: 'var(--border)',
+          light: 'var(--border-light)',
         },
       },
       animation: {

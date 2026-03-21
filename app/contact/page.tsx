@@ -39,7 +39,7 @@ export default function ContactPage() {
   };
 
   const inputClass =
-    'w-full bg-[#111111] border border-[#2a2a2a] rounded-lg px-4 py-3 text-sm text-[#f5f0e8] placeholder-[#57534e] focus:outline-none focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/30 transition';
+    'w-full bg-bg-secondary border border-border rounded-lg px-4 py-3 text-sm text-text-primary placeholder-[#57534e] focus:outline-none focus:border-amber/60 focus:ring-1 focus:ring-amber-500/30 transition';
 
   return (
     <div className="pt-24 pb-20">
@@ -57,34 +57,34 @@ export default function ContactPage() {
               <h3 className="font-display text-lg font-semibold mb-4">Contact Details</h3>
               {/* Email with copy */}
               <div className="flex items-start gap-3.5">
-                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber shrink-0 mt-0.5">
                   <Mail size={15} />
                 </div>
                 <div>
-                  <p className="text-xs text-[#57534e] font-mono">Email</p>
+                  <p className="text-xs text-text-muted font-mono">Email</p>
                   <CopyEmail email={personalInfo.email} />
                 </div>
               </div>
 
               {/* Phone */}
               <a href={`tel:${personalInfo.phone}`} className="flex items-start gap-3.5 group">
-                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5 group-hover:bg-amber-500/20 transition">
+                <div className="w-9 h-9 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber shrink-0 mt-0.5 group-hover:bg-amber/20 transition">
                   <Phone size={15} />
                 </div>
                 <div>
-                  <p className="text-xs text-[#57534e] font-mono">Phone</p>
-                  <p className="text-sm text-[#a8a29e] group-hover:text-amber-400 transition">{personalInfo.phone}</p>
+                  <p className="text-xs text-text-muted font-mono">Phone</p>
+                  <p className="text-sm text-text-secondary group-hover:text-amber transition">{personalInfo.phone}</p>
                 </div>
               </a>
 
               {/* Location */}
               <div className="flex items-start gap-3.5">
-                <div className="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0 mt-0.5">
+                <div className="w-9 h-9 rounded-lg bg-amber/10 border border-amber/20 flex items-center justify-center text-amber shrink-0 mt-0.5">
                   <MapPin size={15} />
                 </div>
                 <div>
-                  <p className="text-xs text-[#57534e] font-mono">Location</p>
-                  <p className="text-sm text-[#a8a29e]">{personalInfo.location}</p>
+                  <p className="text-xs text-text-muted font-mono">Location</p>
+                  <p className="text-sm text-text-secondary">{personalInfo.location}</p>
                 </div>
               </div>
             </div>
@@ -98,18 +98,18 @@ export default function ContactPage() {
                   { href: personalInfo.linkedin, Icon: Linkedin, label: 'LinkedIn' },
                 ].map(({ href, Icon, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                    className="flex flex-col items-center gap-2 p-3 rounded-lg border border-[#2a2a2a] hover:border-amber-500/40 hover:bg-amber-500/5 transition group">
-                    <Icon size={18} className="text-[#57534e] group-hover:text-amber-400 transition" />
-                    <span className="text-xs text-[#57534e] group-hover:text-amber-400 transition">{label}</span>
+                    className="flex flex-col items-center gap-2 p-3 rounded-lg border border-border hover:border-amber/40 hover:bg-amber/5 transition group">
+                    <Icon size={18} className="text-text-muted group-hover:text-amber transition" />
+                    <span className="text-xs text-text-muted group-hover:text-amber transition">{label}</span>
                   </a>
                 ))}
               </div>
             </div>
 
             <div className="glass-card p-5 border-l-2 border-l-amber-500">
-              <p className="text-sm font-medium text-[#f5f0e8] mb-1">Response Time</p>
-              <p className="text-sm text-[#a8a29e]">
-                I typically respond within <span className="text-amber-400">24–48 hours</span>. Email is the fastest way to reach me.
+              <p className="text-sm font-medium text-text-primary mb-1">Response Time</p>
+              <p className="text-sm text-text-secondary">
+                I typically respond within <span className="text-amber">24–48 hours</span>. Email is the fastest way to reach me.
               </p>
             </div>
           </AnimatedSection>
@@ -122,7 +122,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-mono text-[#57534e] mb-2">Name *</label>
+                    <label className="block text-xs font-mono text-text-muted mb-2">Name *</label>
                     <input
                       required
                       type="text"
@@ -133,7 +133,7 @@ export default function ContactPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-[#57534e] mb-2">Email *</label>
+                    <label className="block text-xs font-mono text-text-muted mb-2">Email *</label>
                     <input
                       required
                       type="email"
@@ -146,7 +146,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-[#57534e] mb-2">Subject *</label>
+                  <label className="block text-xs font-mono text-text-muted mb-2">Subject *</label>
                   <input
                     required
                     type="text"
@@ -158,7 +158,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-[#57534e] mb-2">Message *</label>
+                  <label className="block text-xs font-mono text-text-muted mb-2">Message *</label>
                   <textarea
                     required
                     rows={6}

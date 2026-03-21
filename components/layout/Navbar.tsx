@@ -3,10 +3,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, X, Code2, Download, ChevronDown } from 'lucide-react';
+import { Menu, X, Code2, Download, ChevronDown, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { personalInfo } from '@/lib/data';
 import { cn } from '@/lib/utils';
+import { RopePull } from '@/components/ui/RopePull';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 type NavItem =
   | { label: string; href: string; children?: never }
@@ -29,6 +31,7 @@ const navItems: NavItem[] = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -94,7 +97,7 @@ export function Navbar() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         scrolled
-          ? 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#2a2a2a]'
+          ? 'bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border)]'
           : 'bg-transparent'
       )}
     >
@@ -102,7 +105,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <motion.div
-            className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center group-hover:bg-amber-400 transition-colors"
+            className="w-8 h-8 rounded-lg bg-amber flex items-center justify-center group-hover:bg-amber transition-colors"
             whileHover={{ rotate: 12, scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -110,7 +113,7 @@ export function Navbar() {
           </motion.div>
           <span className="font-display font-bold text-lg tracking-tight">
             {personalInfo.name.split(' ')[0]}
-            <span className="text-amber-500">.</span>
+            <span className="text-amber">.</span>
           </span>
         </Link>
 
@@ -135,8 +138,8 @@ export function Navbar() {
                     className={cn(
                       'relative flex items-center gap-1 px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-200',
                       isCredentialActive
-                        ? 'text-amber-400'
-                        : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                        ? 'text-amber'
+                        : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                     )}
                   >
                     {item.label}
@@ -144,7 +147,7 @@ export function Navbar() {
                     {isCredentialActive && (
                       <motion.span
                         layoutId="navbar-active"
-                        className="absolute inset-0 rounded-md bg-amber-500/10 -z-10"
+                        className="absolute inset-0 rounded-md bg-amber/10 -z-10"
                         transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                       />
                     )}
@@ -153,7 +156,7 @@ export function Navbar() {
                   <AnimatePresence>
                     {dropdownOpen && (
                       <motion.ul
-                        className="absolute top-full left-0 mt-1 w-44 py-1.5 rounded-lg border border-[#2a2a2a] bg-[#111111]/95 backdrop-blur-xl shadow-xl"
+                        className="absolute top-full left-0 mt-1 w-44 py-1.5 rounded-lg border border-border bg-bg-secondary/95 backdrop-blur-xl shadow-xl"
                         initial={{ opacity: 0, y: -8, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -8, scale: 0.95 }}
@@ -169,8 +172,8 @@ export function Navbar() {
                                 className={cn(
                                   'block px-4 py-2.5 text-sm transition-colors',
                                   isChildActive
-                                    ? 'text-amber-400 bg-amber-500/10'
-                                    : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                                    ? 'text-amber bg-amber/10'
+                                    : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                                 )}
                               >
                                 {child.label}
@@ -194,15 +197,15 @@ export function Navbar() {
                   className={cn(
                     'relative px-3.5 py-2 rounded-md text-sm font-medium transition-all duration-200',
                     isActive
-                      ? 'text-amber-400'
-                      : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                      ? 'text-amber'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                   )}
                 >
                   {item.label}
                   {isActive && !isCredentialActive && (
                     <motion.span
                       layoutId="navbar-active"
-                      className="absolute inset-0 rounded-md bg-amber-500/10 -z-10"
+                      className="absolute inset-0 rounded-md bg-amber/10 -z-10"
                       transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                     />
                   )}
@@ -224,8 +227,17 @@ export function Navbar() {
         </ul>
 
         {/* Mobile Toggle */}
+        {/* Mobile theme toggle */}
         <motion.button
-          className="lg:hidden p-2 rounded-md text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5 transition"
+          className="lg:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-amber transition"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          whileTap={{ scale: 0.9 }}
+        >
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        </motion.button>
+        <motion.button
+          className="lg:hidden p-2 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5 transition"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
           whileTap={{ scale: 0.9 }}
@@ -250,7 +262,7 @@ export function Navbar() {
 
             {/* Menu panel */}
             <motion.div
-              className="lg:hidden fixed top-16 left-0 right-0 bg-[#111111]/95 backdrop-blur-xl border-b border-[#2a2a2a] px-4 sm:px-6 py-5 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto"
+              className="lg:hidden fixed top-16 left-0 right-0 bg-[var(--bg-secondary)]/95 backdrop-blur-xl border-b border-[var(--border)] px-4 sm:px-6 py-5 z-50 max-h-[calc(100vh-4rem)] overflow-y-auto"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -274,8 +286,8 @@ export function Navbar() {
                             className={cn(
                               'w-full flex items-center justify-between px-4 py-3 rounded-lg text-sm font-medium transition',
                               isCredentialActive
-                                ? 'text-amber-400 bg-amber-500/10'
-                                : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                                ? 'text-amber bg-amber/10'
+                                : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                             )}
                           >
                             {item.label}
@@ -284,7 +296,7 @@ export function Navbar() {
                           <AnimatePresence>
                             {mobileCredentials && (
                               <motion.ul
-                                className="ml-4 mt-1 space-y-1 border-l border-[#2a2a2a] pl-3"
+                                className="ml-4 mt-1 space-y-1 border-l border-border pl-3"
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
@@ -297,8 +309,8 @@ export function Navbar() {
                                       className={cn(
                                         'block px-4 py-2.5 rounded-lg text-sm transition',
                                         pathname === child.href
-                                          ? 'text-amber-400 bg-amber-500/10'
-                                          : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                                          ? 'text-amber bg-amber/10'
+                                          : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                                       )}
                                     >
                                       {child.label}
@@ -326,8 +338,8 @@ export function Navbar() {
                           className={cn(
                             'block px-4 py-3 rounded-lg text-sm font-medium transition',
                             isActive
-                              ? 'text-amber-400 bg-amber-500/10'
-                              : 'text-[#a8a29e] hover:text-[#f5f0e8] hover:bg-white/5'
+                              ? 'text-amber bg-amber/10'
+                              : 'text-text-secondary hover:text-text-primary hover:bg-white/5'
                           )}
                         >
                           {item.label}
@@ -355,6 +367,11 @@ export function Navbar() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Desktop Theme Toggle positioned independently on the far right */}
+      <div className="hidden lg:block absolute top-0 right-2 sm:right-4 lg:right-5 h-16 pointer-events-none [&>*]:pointer-events-auto z-50">
+        <RopePull />
+      </div>
     </header>
   );
 }
